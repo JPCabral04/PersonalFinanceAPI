@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Account } from './Account';
 
 @Entity()
 export class User {
@@ -20,12 +22,6 @@ export class User {
   @Column()
   password_hash: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  // @OneToMany(() => Account, account => account.user)
-  // accounts: Account[];
+  @OneToMany(() => Account, (account) => account.user)
+  accounts: Account[];
 }
