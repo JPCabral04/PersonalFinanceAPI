@@ -29,6 +29,7 @@
     "class-validator": "^0.14.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.0",
     "reflect-metadata": "^0.2.2",
