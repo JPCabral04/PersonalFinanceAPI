@@ -23,7 +23,7 @@ export class User {
 
   @Column()
   @MinLength(6)
-  password: string;
+  password_hash: string;
 
   @Column()
   @CreateDateColumn()
