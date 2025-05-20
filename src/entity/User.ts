@@ -1,9 +1,7 @@
-import { IsEmail, IsNotEmpty, MinLength, IsDate } from 'class-validator';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,25 +12,18 @@ export class User {
   id: number;
 
   @Column()
-  @IsNotEmpty()
   name: string;
 
-  @Column()
-  @IsEmail()
+  @Column({ unique: true })
   email: string;
 
   @Column()
-  @MinLength(6)
   password_hash: string;
 
-  @Column()
   @CreateDateColumn()
-  @IsDate()
   createdAt: Date;
 
-  @Column()
   @UpdateDateColumn()
-  @IsDate()
   updatedAt: Date;
 
   // @OneToMany(() => Account, account => account.user)
