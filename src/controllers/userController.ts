@@ -7,7 +7,7 @@ const userRepo = AppDataSource.getRepository(User);
 export const getAllUsers = async (req, res) => {
   try {
     const users = await userRepo.find();
-    res.json(users);
+    res.status(status.OK).json(users);
   } catch (err) {
     res
       .status(status.INTERNAL_SERVER_ERROR)
@@ -17,11 +17,11 @@ export const getAllUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await AppDataSource.getRepository(User).findOneBy({
-      id: parseInt(req.params.id),
+    const user = await userRepo.findOneBy({
+      id: req.user.id,
     });
     if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
-    res.json(user);
+    res.status(status.OK).json(user);
   } catch (err) {
     res
       .status(status.INTERNAL_SERVER_ERROR)
@@ -32,8 +32,8 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { name, email } = req.body;
   try {
-    const user = await AppDataSource.getRepository(User).findOneBy({
-      id: parseInt(req.params.id),
+    const user = await userRepo.findOneBy({
+      id: req.user.id,
     });
     if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
 
@@ -41,7 +41,7 @@ export const updateUser = async (req, res) => {
     user.email = email ?? user.email;
     await userRepo.save(user);
 
-    res.json(user);
+    res.status(status.OK).json(user);
   } catch (err) {
     res
       .status(status.INTERNAL_SERVER_ERROR)
@@ -50,7 +50,7 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.user.id;
   try {
     const result = await userRepo.delete(id);
     if (result.affected == 0)
