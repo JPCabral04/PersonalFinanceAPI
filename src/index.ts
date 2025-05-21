@@ -1,7 +1,8 @@
 import { AppDataSource } from './data-source';
 import express from 'express';
 import dotenv from 'dotenv';
-import { auth } from './routes/authRoutes';
+import { authRoutes } from './routes/authRoutes';
+import { userRoutes } from './routes/userRoutes';
 
 dotenv.config();
 const app = express();
@@ -9,7 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use('/auth', auth);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 AppDataSource.initialize()
   .then(() => {
