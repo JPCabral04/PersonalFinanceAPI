@@ -17,8 +17,10 @@ import {
 } from 'class-validator';
 
 export enum AccountType {
-  CREDITO = 'crédito',
-  DEBITO = 'débito',
+  CORRENTE = 'Corrente',
+  POUPANCA = 'Poupança',
+  CREDITO = 'Crédito',
+  INVESTIMENTO = 'Investimento',
 }
 
 @Entity()
@@ -31,8 +33,7 @@ export class Account {
   @IsString()
   name: string;
 
-  @Column()
-  @IsEnum(AccountType)
+  @Column({ type: 'enum', enum: AccountType })
   accountType: AccountType;
 
   @Column({ type: 'numeric', default: 0 })
