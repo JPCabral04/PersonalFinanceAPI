@@ -10,12 +10,6 @@ export const createAccount = async (req, res) => {
   const userId = req.user.id;
   const { name, accountType, balance } = req.body;
 
-  if (!name || !accountType) {
-    return res
-      .status(status.BAD_REQUEST)
-      .json({ error: 'Nome e tipo de conta são obrigatórios' });
-  }
-
   try {
     const user = await userRepo.findOneBy({ id: userId });
     if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
